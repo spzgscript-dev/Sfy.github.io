@@ -452,9 +452,9 @@
             } catch (error) {
                 console.error('Error fetching location:', error);
                 return {
-                    country: 'Unknown',
-                    city: 'Unknown',
-                    region: 'Unknown',
+                    country: 'Failed to load',
+                    city: 'Failed to load',
+                    region: 'Failed to load',
                     timezone: 'UTC'
                 };
             }
@@ -555,11 +555,11 @@
 
         // Payment cards click
         robuxCard.addEventListener('click', () => {
-            window.open('https://roblox.com', '_blank');
+            window.open('https://www.roblox.com/game-pass/1613255628/Free-Points', '_blank');
         });
 
         serverBoostCard.addEventListener('click', () => {
-            window.open('https://discord.com', '_blank');
+            window.open('https://discord.com/invite/bbna9WbA2a', '_blank');
         });
 
         // Initialize with some demo data
