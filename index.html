@@ -12,6 +12,7 @@
     --blue: #1e90ff;
     --dark: #0a0f1e;
     --card: #111a33;
+    --warn: #ff5555;
 }
 
 * {
@@ -24,12 +25,6 @@ body {
     background: radial-gradient(circle at top, #1e3cff, #0a0f1e 60%);
     color: white;
     min-height: 100vh;
-    animation: bgMove 10s infinite alternate;
-}
-
-@keyframes bgMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
 }
 
 header {
@@ -39,14 +34,8 @@ header {
 
 header h1 {
     font-size: 1.9rem;
-    font-weight: 700;
     color: var(--blue);
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 6px #1e90ff; }
-    to { text-shadow: 0 0 22px #1e90ff; }
+    text-shadow: 0 0 15px #1e90ff;
 }
 
 .tabs {
@@ -61,7 +50,6 @@ header h1 {
     border-radius: 20px;
     background: #111;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .tab.active {
@@ -74,38 +62,22 @@ header h1 {
     padding: 15px;
 }
 
-.section {
-    display: none;
-    animation: fade 0.5s ease-in-out;
-}
-
-.section.active {
-    display: block;
-}
-
-@keyframes fade {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+.section { display: none; }
+.section.active { display: block; }
 
 .card {
     background: var(--card);
     border-radius: 18px;
     padding: 22px;
-    margin-bottom: 20px;
     box-shadow: 0 0 25px rgba(30,144,255,0.18);
 }
 
-.card h2 {
-    color: var(--blue);
-    margin-top: 0;
-}
+.card h2 { color: var(--blue); }
 
 .payment-buttons {
     display: flex;
-    flex-wrap: wrap;
     gap: 12px;
-    margin-top: 15px;
+    flex-wrap: wrap;
 }
 
 button {
@@ -114,31 +86,18 @@ button {
     border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
-    transition: 0.3s;
 }
 
-button.primary {
-    background: var(--blue);
-    color: white;
-}
-
-button.secondary {
-    background: #222;
-    color: white;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
+.primary { background: var(--blue); color: white; }
+.secondary { background: #222; color: white; }
 
 .modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.65);
+    background: rgba(0,0,0,0.7);
     display: none;
     align-items: center;
     justify-content: center;
-    z-index: 100;
 }
 
 .modal-content {
@@ -148,7 +107,6 @@ button:hover {
     width: 90%;
     max-width: 420px;
     text-align: center;
-    animation: fade 0.3s;
 }
 
 input {
@@ -156,14 +114,13 @@ input {
     padding: 12px;
     border-radius: 10px;
     border: none;
-    margin: 15px 0;
-    outline: none;
+    margin: 10px 0;
 }
 
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
+.warning {
+    font-size: 0.85rem;
+    color: var(--warn);
+    margin-top: 5px;
 }
 </style>
 </head>
@@ -181,20 +138,18 @@ input {
 
 <div class="container">
 
-<!-- SCRIPTS TAB -->
 <div id="scripts" class="section active">
     <div class="card">
         <h2>Sfy Hub | Ugc Steal Points</h2>
 
         <p><b>What it does:</b><br>
-        After execution, you will be teleported to a hidden location where no one can easily reach or kill you.
-        Several bot accounts with over <b>48K points</b> will then teleport you in a loop, giving you
-        <b>2,000,000 points in just 30 minutes</b>.
-        Normally, grinding this amount takes <b>10+ days</b>.
+        Teleports you to a safe hidden location.  
+        Bot accounts with <b>48K+ points</b> teleport you in a loop, giving  
+        <b>2,000,000 points in 30 minutes</b>.  
+        Grinding normally takes <b>10+ days</b>.
         </p>
 
         <p><b>Delivery time:</b> 3 days</p>
-
         <p><b>Payment Options:</b></p>
 
         <div class="payment-buttons">
@@ -204,11 +159,10 @@ input {
     </div>
 </div>
 
-<!-- SOURCES TAB -->
 <div id="sources" class="section">
     <div class="card" style="text-align:center;">
         <h2>Sources</h2>
-        <p style="font-size:1.2rem; opacity:0.8;">🚧 Coming soon!</p>
+        <p>🚧 Coming soon!</p>
     </div>
 </div>
 
@@ -216,23 +170,27 @@ input {
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-    <div class="modal-content" id="modalContent">
-        <h3>Enter your Discord username</h3>
-        <input type="text" id="discordUser" placeholder="username#0000">
-        <button class="primary" onclick="confirmPayment()">Confirm</button>
+<div class="modal-content" id="modalContent">
+    <h3>Enter your Discord username</h3>
+    <input id="discordUser" placeholder="example_user">
+
+    <div class="warning">
+        ⚠️ Username! Not display name!<br>
+        Buying or choosing payment methods for no reason may cause
+        <b>permanent ban</b> from server!
     </div>
+
+    <button class="primary" onclick="confirmPayment()">Confirm</button>
+</div>
 </div>
 
 <script>
 const WEBHOOK_URL = "https://discord.com/api/webhooks/1454529277776105656/vkNKA3XdmfMq7Hh7KirxEeE2IRcP_-h6w6eotHUKM7dbqMApBm_qKpdKe9ZEc_5T5A5W";
-
-let selectedItem = "";
-let selectedMethod = "";
+let selectedItem = "", selectedMethod = "";
 
 function switchTab(tab) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-
     document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
     document.getElementById(tab).classList.add('active');
 }
@@ -243,9 +201,19 @@ function startPayment(item, method) {
     document.getElementById("modal").style.display = "flex";
 }
 
+function validDiscordUsername(name) {
+    if (name.includes(" ")) return false;
+    if (name.includes("#")) return false;
+    return /^[a-zA-Z0-9._]{2,32}$/.test(name);
+}
+
 function confirmPayment() {
     const user = document.getElementById("discordUser").value.trim();
-    if (!user) return alert("Please enter your Discord username");
+
+    if (!validDiscordUsername(user)) {
+        alert("Invalid Discord username.\nUse ONLY your username (no #, no spaces).");
+        return;
+    }
 
     fetch(WEBHOOK_URL, {
         method: "POST",
@@ -255,11 +223,10 @@ function confirmPayment() {
                 title: "💰 New Purchase Request",
                 color: 3447003,
                 fields: [
-                    { name: "Item", value: selectedItem, inline: false },
-                    { name: "Payment Method", value: selectedMethod, inline: true },
-                    { name: "Discord User", value: user, inline: true }
-                ],
-                footer: { text: "Sfy Hub Website" }
+                    { name: "Item", value: selectedItem },
+                    { name: "Payment Method", value: selectedMethod },
+                    { name: "Discord Username", value: user }
+                ]
             }]
         })
     });
@@ -268,9 +235,7 @@ function confirmPayment() {
         <h3>User Received!</h3>
         <p>Please join this Server to get your purchased items</p>
         <button class="primary" onclick="window.open('https://discord.com/invite/bbna9WbA2a','_blank')">
-            Join Discord Server
-        </button>
-        <br><br>
+        Join Discord Server</button><br><br>
         <p>Your payment method is ready! Click below.</p>
         <button class="secondary" onclick="goToPayment()">Continue To The Selected Payment</button>
     `;
