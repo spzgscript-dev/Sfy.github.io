@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sfy Hub's Paid Scripts And Sources!</title>
 
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -33,34 +32,32 @@ body {
     100% { background-position: 100% 50%; }
 }
 
-/* Header */
 header {
     text-align: center;
     padding: 25px 15px;
 }
 
 header h1 {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
     font-weight: 700;
     color: var(--blue);
     animation: glow 2s infinite alternate;
 }
 
 @keyframes glow {
-    from { text-shadow: 0 0 5px #1e90ff; }
-    to { text-shadow: 0 0 20px #1e90ff; }
+    from { text-shadow: 0 0 6px #1e90ff; }
+    to { text-shadow: 0 0 22px #1e90ff; }
 }
 
-/* Tabs */
 .tabs {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 25px;
 }
 
 .tab {
-    padding: 10px 20px;
+    padding: 10px 22px;
     border-radius: 20px;
     background: #111;
     cursor: pointer;
@@ -71,7 +68,6 @@ header h1 {
     background: var(--blue);
 }
 
-/* Content */
 .container {
     max-width: 900px;
     margin: auto;
@@ -92,13 +88,12 @@ header h1 {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Card */
 .card {
     background: var(--card);
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 18px;
+    padding: 22px;
     margin-bottom: 20px;
-    box-shadow: 0 0 20px rgba(30,144,255,0.15);
+    box-shadow: 0 0 25px rgba(30,144,255,0.18);
 }
 
 .card h2 {
@@ -109,7 +104,7 @@ header h1 {
 .payment-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     margin-top: 15px;
 }
 
@@ -136,11 +131,10 @@ button:hover {
     transform: scale(1.05);
 }
 
-/* Modal */
 .modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.65);
     display: none;
     align-items: center;
     justify-content: center;
@@ -152,7 +146,7 @@ button:hover {
     padding: 25px;
     border-radius: 16px;
     width: 90%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
     animation: fade 0.3s;
 }
@@ -166,10 +160,9 @@ input {
     outline: none;
 }
 
-/* Mobile */
 @media (max-width: 600px) {
     header h1 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 }
 </style>
@@ -188,39 +181,40 @@ input {
 
 <div class="container">
 
-    <!-- Scripts -->
-    <div id="scripts" class="section active">
-        <div class="card">
-            <h2>Script Name</h2>
-            <p><b>What it does:</b> Premium advanced script with optimized features.</p>
-            <p><b>Delivery time:</b> Instant after payment</p>
-            <p><b>Payment Options:</b></p>
+<!-- SCRIPTS TAB -->
+<div id="scripts" class="section active">
+    <div class="card">
+        <h2>Sfy Hub | Ugc Steal Points</h2>
 
-            <div class="payment-buttons">
-                <button class="primary" onclick="startPayment('Script Name','Robux')">Robux</button>
-                <button class="secondary" onclick="startPayment('Script Name','Server Boost')">Server Boost</button>
-            </div>
+        <p><b>What it does:</b><br>
+        After execution, you will be teleported to a hidden location where no one can easily reach or kill you.
+        Several bot accounts with over <b>48K points</b> will then teleport you in a loop, giving you
+        <b>2,000,000 points in just 30 minutes</b>.
+        Normally, grinding this amount takes <b>10+ days</b>.
+        </p>
+
+        <p><b>Delivery time:</b> 3 days</p>
+
+        <p><b>Payment Options:</b></p>
+
+        <div class="payment-buttons">
+            <button class="primary" onclick="startPayment('Sfy Hub | Ugc Steal Points','Robux')">Robux</button>
+            <button class="secondary" onclick="startPayment('Sfy Hub | Ugc Steal Points','Server Boost')">Server Boost</button>
         </div>
     </div>
+</div>
 
-    <!-- Sources -->
-    <div id="sources" class="section">
-        <div class="card">
-            <h2>Source Name</h2>
-            <p><b>What it does:</b> Full editable source code.</p>
-            <p><b>Delivery time:</b> Instant after payment</p>
-            <p><b>Payment Options:</b></p>
-
-            <div class="payment-buttons">
-                <button class="primary" onclick="startPayment('Source Name','Robux')">Robux</button>
-                <button class="secondary" onclick="startPayment('Source Name','Server Boost')">Server Boost</button>
-            </div>
-        </div>
+<!-- SOURCES TAB -->
+<div id="sources" class="section">
+    <div class="card" style="text-align:center;">
+        <h2>Sources</h2>
+        <p style="font-size:1.2rem; opacity:0.8;">🚧 Coming soon!</p>
     </div>
+</div>
 
 </div>
 
-<!-- Modal -->
+<!-- MODAL -->
 <div class="modal" id="modal">
     <div class="modal-content" id="modalContent">
         <h3>Enter your Discord username</h3>
@@ -258,20 +252,19 @@ function confirmPayment() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
             embeds: [{
-                title: "💰 New Purchase",
+                title: "💰 New Purchase Request",
                 color: 3447003,
                 fields: [
-                    { name: "Item", value: selectedItem, inline: true },
+                    { name: "Item", value: selectedItem, inline: false },
                     { name: "Payment Method", value: selectedMethod, inline: true },
-                    { name: "Discord User", value: user, inline: false }
+                    { name: "Discord User", value: user, inline: true }
                 ],
                 footer: { text: "Sfy Hub Website" }
             }]
         })
     });
 
-    const modal = document.getElementById("modalContent");
-    modal.innerHTML = `
+    document.getElementById("modalContent").innerHTML = `
         <h3>User Received!</h3>
         <p>Please join this Server to get your purchased items</p>
         <button class="primary" onclick="window.open('https://discord.com/invite/bbna9WbA2a','_blank')">
