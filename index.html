@@ -9,10 +9,9 @@
 
 <style>
 :root {
-    --blue: #1e90ff;
-    --dark: #0a0f1e;
-    --card: #111a33;
-    --warn: #ff5555;
+    --blue: #4aa3ff;
+    --card: rgba(20, 30, 70, 0.75);
+    --warn: #ff5c5c;
 }
 
 * {
@@ -22,40 +21,69 @@
 
 body {
     margin: 0;
-    background: radial-gradient(circle at top, #1e3cff, #0a0f1e 60%);
     color: white;
     min-height: 100vh;
+    background: linear-gradient(120deg,
+        #0f2027,
+        #203a43,
+        #2c5364,
+        #1e3cff,
+        #00c6ff);
+    background-size: 400% 400%;
+    animation: aurora 14s ease infinite;
 }
 
+@keyframes aurora {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Header */
 header {
     text-align: center;
-    padding: 25px 15px;
+    padding: 30px 15px;
 }
 
 header h1 {
     font-size: 1.9rem;
     color: var(--blue);
-    text-shadow: 0 0 15px #1e90ff;
+    text-shadow: 0 0 25px rgba(74,163,255,0.9);
+    animation: glow 2s infinite alternate;
 }
 
+@keyframes glow {
+    from { text-shadow: 0 0 10px #4aa3ff; }
+    to { text-shadow: 0 0 30px #4aa3ff; }
+}
+
+/* Tabs */
 .tabs {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin-bottom: 25px;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .tab {
-    padding: 10px 22px;
-    border-radius: 20px;
-    background: #111;
+    padding: 12px 26px;
+    border-radius: 30px;
+    background: rgba(0,0,0,0.4);
     cursor: pointer;
+    font-weight: 600;
+    transition: 0.35s;
+}
+
+.tab:hover {
+    transform: translateY(-3px);
 }
 
 .tab.active {
     background: var(--blue);
+    box-shadow: 0 0 20px rgba(74,163,255,0.7);
 }
 
+/* Content */
 .container {
     max-width: 900px;
     margin: auto;
@@ -63,34 +91,68 @@ header h1 {
 }
 
 .section { display: none; }
-.section.active { display: block; }
-
-.card {
-    background: var(--card);
-    border-radius: 18px;
-    padding: 22px;
-    box-shadow: 0 0 25px rgba(30,144,255,0.18);
+.section.active {
+    display: block;
+    animation: fadeUp 0.6s ease;
 }
 
-.card h2 { color: var(--blue); }
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cards */
+.card {
+    background: var(--card);
+    backdrop-filter: blur(14px);
+    border-radius: 22px;
+    padding: 25px;
+    box-shadow: 0 0 35px rgba(0,0,0,0.4);
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.card h2 {
+    color: var(--blue);
+}
 
 .payment-buttons {
     display: flex;
-    gap: 12px;
     flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
 }
 
+/* Buttons */
 button {
     border: none;
-    padding: 12px 18px;
-    border-radius: 12px;
+    padding: 14px 20px;
+    border-radius: 16px;
     cursor: pointer;
     font-weight: 600;
+    transition: 0.35s;
 }
 
-.primary { background: var(--blue); color: white; }
-.secondary { background: #222; color: white; }
+.primary {
+    background: var(--blue);
+    color: white;
+}
 
+.secondary {
+    background: rgba(0,0,0,0.45);
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 20px rgba(74,163,255,0.7);
+}
+
+/* Modal */
 .modal {
     position: fixed;
     inset: 0;
@@ -98,29 +160,40 @@ button {
     display: none;
     align-items: center;
     justify-content: center;
+    z-index: 100;
 }
 
 .modal-content {
     background: var(--card);
-    padding: 25px;
-    border-radius: 16px;
+    backdrop-filter: blur(16px);
+    padding: 28px;
+    border-radius: 22px;
     width: 90%;
     max-width: 420px;
     text-align: center;
+    animation: scaleIn 0.4s ease;
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 input {
     width: 100%;
     padding: 12px;
-    border-radius: 10px;
+    border-radius: 12px;
     border: none;
-    margin: 10px 0;
+    margin: 12px 0;
 }
 
 .warning {
     font-size: 0.85rem;
     color: var(--warn);
-    margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+    header h1 { font-size: 1.5rem; }
 }
 </style>
 </head>
@@ -128,42 +201,42 @@ input {
 <body>
 
 <header>
-    <h1>Sfy Hub's Paid Scripts And Sources!</h1>
+    <h1>✨ Sfy Hub's Paid Scripts And Sources!</h1>
 </header>
 
 <div class="tabs">
-    <div class="tab active" onclick="switchTab('scripts')">Scripts</div>
-    <div class="tab" onclick="switchTab('sources')">Sources</div>
+    <div class="tab active" onclick="switchTab('scripts')">📜 Scripts</div>
+    <div class="tab" onclick="switchTab('sources')">🧩 Sources</div>
 </div>
 
 <div class="container">
 
 <div id="scripts" class="section active">
-    <div class="card">
-        <h2>Sfy Hub | Ugc Steal Points</h2>
+<div class="card">
+    <h2>🔥 Sfy Hub | Ugc Steal Points</h2>
 
-        <p><b>What it does:</b><br>
-        Teleports you to a safe hidden location.  
-        Bot accounts with <b>48K+ points</b> teleport you in a loop, giving  
-        <b>2,000,000 points in 30 minutes</b>.  
-        Grinding normally takes <b>10+ days</b>.
-        </p>
+    <p><b>What it does:</b><br>
+    Teleports you to a hidden safe location.
+    Bots with <b>48K+ points</b> teleport you in a loop, giving
+    <b>2,000,000 points in 30 minutes</b>.
+    Normal grind takes <b>10+ days</b>.
+    </p>
 
-        <p><b>Delivery time:</b> 3 days</p>
-        <p><b>Payment Options:</b></p>
+    <p><b>Delivery time:</b> 3 days</p>
+    <p><b>Payment Options:</b></p>
 
-        <div class="payment-buttons">
-            <button class="primary" onclick="startPayment('Sfy Hub | Ugc Steal Points','Robux')">Robux</button>
-            <button class="secondary" onclick="startPayment('Sfy Hub | Ugc Steal Points','Server Boost')">Server Boost</button>
-        </div>
+    <div class="payment-buttons">
+        <button class="primary" onclick="startPayment('Sfy Hub | Ugc Steal Points','Robux')">🟢 Robux</button>
+        <button class="secondary" onclick="startPayment('Sfy Hub | Ugc Steal Points','Server Boost')">🚀 Server Boost</button>
     </div>
+</div>
 </div>
 
 <div id="sources" class="section">
-    <div class="card" style="text-align:center;">
-        <h2>Sources</h2>
-        <p>🚧 Coming soon!</p>
-    </div>
+<div class="card" style="text-align:center;">
+    <h2>🧩 Sources</h2>
+    <p>🚧 Coming soon!</p>
+</div>
 </div>
 
 </div>
@@ -172,77 +245,73 @@ input {
 <div class="modal" id="modal">
 <div class="modal-content" id="modalContent">
     <h3>Enter your Discord username</h3>
-    <input id="discordUser" placeholder="example_user">
+    <input id="discordUser" placeholder="username">
 
     <div class="warning">
-        ⚠️ Username! Not display name!<br>
-        Buying or choosing payment methods for no reason may cause
-        <b>permanent ban</b> from server!
+        ⚠️ Username only (not display name)<br>
+        Fake buying may cause <b>permanent ban</b>.
     </div>
 
-    <button class="primary" onclick="confirmPayment()">Confirm</button>
+    <button class="primary" onclick="confirmPayment()">✅ Confirm</button>
 </div>
 </div>
 
 <script>
 const WEBHOOK_URL = "https://discord.com/api/webhooks/1454529277776105656/vkNKA3XdmfMq7Hh7KirxEeE2IRcP_-h6w6eotHUKM7dbqMApBm_qKpdKe9ZEc_5T5A5W";
-let selectedItem = "", selectedMethod = "";
+let selectedItem="", selectedMethod="";
 
-function switchTab(tab) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+function switchTab(tab){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
     document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
     document.getElementById(tab).classList.add('active');
 }
 
-function startPayment(item, method) {
-    selectedItem = item;
-    selectedMethod = method;
-    document.getElementById("modal").style.display = "flex";
+function startPayment(item, method){
+    selectedItem=item;
+    selectedMethod=method;
+    modal.style.display="flex";
 }
 
-function validDiscordUsername(name) {
-    if (name.includes(" ")) return false;
-    if (name.includes("#")) return false;
+function validDiscord(name){
     return /^[a-zA-Z0-9._]{2,32}$/.test(name);
 }
 
-function confirmPayment() {
-    const user = document.getElementById("discordUser").value.trim();
-
-    if (!validDiscordUsername(user)) {
-        alert("Invalid Discord username.\nUse ONLY your username (no #, no spaces).");
+function confirmPayment(){
+    const user=discordUser.value.trim();
+    if(!validDiscord(user)){
+        alert("Invalid Discord username format.");
         return;
     }
 
-    fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            embeds: [{
-                title: "💰 New Purchase Request",
-                color: 3447003,
-                fields: [
-                    { name: "Item", value: selectedItem },
-                    { name: "Payment Method", value: selectedMethod },
-                    { name: "Discord Username", value: user }
+    fetch(WEBHOOK_URL,{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({
+            embeds:[{
+                title:"💰 New Purchase",
+                color:4886754,
+                fields:[
+                    {name:"Item",value:selectedItem},
+                    {name:"Payment",value:selectedMethod},
+                    {name:"Discord",value:user}
                 ]
             }]
         })
     });
 
-    document.getElementById("modalContent").innerHTML = `
-        <h3>User Received!</h3>
-        <p>Please join this Server to get your purchased items</p>
-        <button class="primary" onclick="window.open('https://discord.com/invite/bbna9WbA2a','_blank')">
-        Join Discord Server</button><br><br>
-        <p>Your payment method is ready! Click below.</p>
-        <button class="secondary" onclick="goToPayment()">Continue To The Selected Payment</button>
+    modalContent.innerHTML=`
+        <h3>✅ User Received!</h3>
+        <p>Please join our server</p>
+        <button class="primary" onclick="window.open('https://discord.com/invite/bbna9WbA2a','_blank')">🔗 Join Discord</button>
+        <br><br>
+        <p>Your payment method is ready</p>
+        <button class="secondary" onclick="goPay()">➡️ Continue Payment</button>
     `;
 }
 
-function goToPayment() {
-    if (selectedMethod === "Robux") {
+function goPay(){
+    if(selectedMethod==="Robux"){
         window.open("https://www.roblox.com/game-pass/1613255628/Free-Points","_blank");
     } else {
         window.open("https://discord.com/invite/bbna9WbA2a","_blank");
