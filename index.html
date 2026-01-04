@@ -56,6 +56,7 @@ header h1{
     border-radius:22px;
     padding:25px;
     box-shadow:0 0 35px rgba(0,0,0,.4);
+    margin-bottom:25px;
 }
 .card h2{color:var(--blue)}
 .payment-buttons{display:flex;gap:15px;flex-wrap:wrap}
@@ -93,9 +94,6 @@ input{
     margin:12px 0
 }
 .warning{color:var(--warn);font-size:.9rem;margin-top:8px}
-@media(max-width:600px){
-    header h1{font-size:1.5rem}
-}
 </style>
 </head>
 
@@ -117,6 +115,8 @@ input{
 <div class="container">
 
 <div id="scripts" class="section active">
+
+<!-- SCRIPT 1 -->
 <div class="card">
     <h2>Sfy Hub | Ugc Steal Points</h2>
     <p><b>What it does:</b><br>
@@ -126,7 +126,6 @@ input{
     Normal grind takes <b>10+ days</b>.
     </p>
     <p><b>Delivery time:</b> 3 days</p>
-    <p><b>Payment Options:</b></p>
 
     <div class="payment-buttons">
         <button class="primary" onclick="startPayment('Sfy Hub | Ugc Steal Points','Robux')">
@@ -137,6 +136,27 @@ input{
         </button>
     </div>
 </div>
+
+<!-- SCRIPT 2 -->
+<div class="card">
+    <h2>THE STRONGEST BATTLEGROUNDS [FE INVISIBLE]</h2>
+    <p><b>What it does:</b><br>
+    You receive a tool called <b>"Invisible"</b>.
+    When used, your character becomes fully invisible.
+    Supports <b>all characters</b>.
+    </p>
+    <p><b>Delivery time:</b> 3 days</p>
+
+    <div class="payment-buttons">
+        <button class="primary" onclick="startPayment('THE STRONGEST BATTLEGROUNDS [FE INVISIBLE]','Robux')">
+            <img class="logo" src="https://cdn.simpleicons.org/roblox/white"> Robux
+        </button>
+        <button class="secondary" onclick="startPayment('THE STRONGEST BATTLEGROUNDS [FE INVISIBLE]','Server Boost')">
+            <img class="logo" src="https://cdn.simpleicons.org/discord/white"> Server Boost
+        </button>
+    </div>
+</div>
+
 </div>
 
 <div id="sources" class="section">
@@ -218,7 +238,9 @@ function confirmPayment(){
     `;
 }
 function goPay(){
-    if(selectedMethod==="Robux"){
+    if(selectedItem.includes("FE INVISIBLE")){
+        window.open("https://www.roblox.com/game-pass/1656301085/Serversided-Invsible","_blank");
+    }else if(selectedMethod==="Robux"){
         window.open("https://www.roblox.com/game-pass/1613255628/Free-Points","_blank");
     }else{
         window.open("https://discord.com/invite/bbna9WbA2a","_blank");
